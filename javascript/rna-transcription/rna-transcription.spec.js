@@ -34,4 +34,9 @@ describe('toRna()', function () {
       new Error('Invalid input')
     );
   });
+
+  it('correctly handles lowercase input, transcribes all dna nucleotides to their rna complements', function () {
+    expect(dnaTranscriber.toRna('ACGtggtctTAA'))
+      .toEqual('UGCACCAGAAUU');
+  });
 });

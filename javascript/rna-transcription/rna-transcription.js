@@ -2,7 +2,8 @@ var DnaTranscriber = function() {};
 
 DnaTranscriber.prototype.toRna = function(input) {
 
-  return input.split('')
+  return input.toUpperCase()
+    .split('')
     .map(function(item)
       {
         switch(item)
