@@ -4,6 +4,8 @@ public static class ReverseString
 {
     public static string Reverse(string input)
     {
-        throw new NotImplementedException("You need to implement this function.");
+        char[] cArray = input.ToCharArray();
+        Array.Reverse(cArray);
+        return new string(cArray);
     }
 }
