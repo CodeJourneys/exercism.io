@@ -25,6 +25,11 @@ describe('Random key cipher', function () {
 });
 
 describe('Incorrect key cipher', function () {
+  it('key does not begin with "undefined"', function () {
+    var cipher = new Cipher();
+    expect(cipher.key.indexOf("undefined")).toEqual(-1);
+  });
+
   it('throws an error with an all caps key', function () {
     expect( function () {
       new Cipher('ABCDEF');

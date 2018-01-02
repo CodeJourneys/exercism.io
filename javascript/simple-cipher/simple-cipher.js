@@ -7,15 +7,18 @@ var Cipher = function(cipherKey)
     ];
 
     if(!arguments.length) {
+      this.key = alphabet[Math.floor(Math.random() * 25)];
       for(var i = 0; i < 200; i++)
       {
         this.key += alphabet[Math.floor(Math.random() * 25)];
       }
     }
     else {
-      if(!/[a-z]+/.test(cipherKey)) throw new Error("Bad key");
+      if(!/^[a-z]+$/.test(cipherKey)) throw new Error("Bad key");
       this.key = cipherKey;
     }
   };
+
+
 
 module.exports = Cipher;
