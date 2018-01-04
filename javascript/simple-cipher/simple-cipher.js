@@ -1,16 +1,16 @@
 var Cipher = function(cipherKey)
   {
-    const alphabet =
+    this.alphabet =
     [
       "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
       "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     ];
 
     if(!arguments.length) {
-      this.key = alphabet[Math.floor(Math.random() * 25)];
+      this.key = this.alphabet[Math.floor(Math.random() * 25)];
       for(var i = 0; i < 200; i++)
       {
-        this.key += alphabet[Math.floor(Math.random() * 25)];
+        this.key += this.alphabet[Math.floor(Math.random() * 25)];
       }
     }
     else {
@@ -19,6 +19,17 @@ var Cipher = function(cipherKey)
     }
   };
 
+  Cipher.prototype.encode = function(cipherText) {
+    let alphabet = this.alphabet,
+      key = this.key;
 
+    return cipherText.split("")
+    .map(function(charVal, arrayIndex)
+    {
+      return alphabet[alphabet.indexOf(charVal) +
+        alphabet.indexOf(key[arrayIndex%key.length])];
+    })
+    .join("");
+  };
 
 module.exports = Cipher;

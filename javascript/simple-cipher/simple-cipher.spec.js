@@ -53,11 +53,11 @@ describe('Substitution cipher', function () {
   var key = 'abcdefghij';
   var cipher = new Cipher(key);
 
-  xit('keeps the submitted key', function () {
+  it('keeps the submitted key', function () {
     expect(cipher.key).toEqual(key);
   });
 
-  xit('can encode', function () {
+  it('can encode', function () {
     expect(cipher.encode('aaaaaaaaaa')).toEqual('abcdefghij');
   });
 
