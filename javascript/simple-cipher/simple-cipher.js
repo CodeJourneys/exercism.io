@@ -1,9 +1,7 @@
 var Cipher = function(cipherKey)
   {
     let keyLen = 200;
-
-    this.alphabet =
-    [
+    this.alphabet = [
       "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
       "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
     ];
@@ -22,25 +20,31 @@ var Cipher = function(cipherKey)
   };
 
   Cipher.prototype.encode = function(cipherText) {
-    return this.ncrypt(cipherText, true);
+    let alphabet = this.alphabet, key = this.key,
+    returnFunction = function(charVal, arrayIndex)
+      {
+        return alphabet[(alphabet.indexOf(charVal) +
+        alphabet.indexOf(key[arrayIndex % key.length])) % alphabet.length];
+      };
+    return this.ncode(cipherText, returnFunction);
   };
 
   Cipher.prototype.decode = function(cipherText) {
-    return this.ncrypt(cipherText, false);
+    let alphabet = this.alphabet, key = this.key,
+    returnFunction = function(charVal, arrayIndex)
+      {
+        let returnVal = alphabet.indexOf(charVal) -
+          alphabet.indexOf(key[arrayIndex % key.length]);
+        returnVal = returnVal >= 0 ? returnVal : alphabet.length + returnVal;
+
+        return alphabet[returnVal];
+      };
+    return this.ncode(cipherText, returnFunction);
   }
 
-  Cipher.prototype.ncrypt = function(cipherText, encode)
-  {
-    let alphabet = this.alphabet,
-      key = this.key,
-      modifier = !encode ? -1 : 1;
-
+  Cipher.prototype.ncode = function(cipherText, mapFunction) {
     return cipherText.split("")
-    .map(function(charVal, arrayIndex)
-    {
-      return alphabet[(alphabet.indexOf(charVal) +
-        ( alphabet.indexOf( key[arrayIndex % key.length] ) * modifier)) % alphabet.length];
-    })
+    .map(mapFunction)
     .join("");
   }
 
