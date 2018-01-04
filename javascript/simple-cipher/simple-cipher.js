@@ -20,16 +20,26 @@ var Cipher = function(cipherKey)
   };
 
   Cipher.prototype.encode = function(cipherText) {
+    return this.crypt(cipherText, true);
+  };
+
+  Cipher.prototype.decode = function(cipherText) {
+    return this.crypt(cipherText, false);
+  }
+
+  Cipher.prototype.crypt = function(cipherText, encode)
+  {
     let alphabet = this.alphabet,
-      key = this.key;
+      key = this.key,
+      modifier = encode ? 1 : -1;
 
     return cipherText.split("")
     .map(function(charVal, arrayIndex)
     {
       return alphabet[alphabet.indexOf(charVal) +
-        alphabet.indexOf(key[arrayIndex%key.length])];
+        (alphabet.indexOf(key[arrayIndex%key.length]) * modifier)];
     })
     .join("");
-  };
+  }
 
 module.exports = Cipher;

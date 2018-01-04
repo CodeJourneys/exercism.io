@@ -61,7 +61,7 @@ describe('Substitution cipher', function () {
     expect(cipher.encode('aaaaaaaaaa')).toEqual('abcdefghij');
   });
 
-  xit('can decode', function () {
+  it('can decode', function () {
     expect(cipher.decode('abcdefghij')).toEqual('aaaaaaaaaa');
   });
 
