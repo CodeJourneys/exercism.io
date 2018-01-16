@@ -1,51 +1,37 @@
-var Cipher = function(cipherKey)
+module.exports = class Cipher
   {
-    let keyLen = 200;
-    this.alphabet = [
-      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-    ];
+    constructor(key)
+    {
+      this.alphabet = "abcdefghijklmnopqrstuvwxyz";
+      if(!arguments.length) key = this.randomKey();
+      if(!/^[a-z]+$/.test(key)) throw new Error("Bad key");
+      this.key = key;
+    }
 
-    if(!arguments.length) {
-      this.key = this.alphabet[Math.floor(Math.random() * 25)];
+    encode(cipherText) {
+      return this.perform(cipherText);
+    }
+
+    decode(cipherText) {
+      return this.perform(cipherText, false);
+    }
+
+    perform(cipherText, doEncode = true) {
+      let directionModifier = !doEncode ? -1 : 1;
+      return cipherText.split("")
+      .map((c, i) => {
+        return this.alphabet[(this.alphabet.length + this.alphabet.indexOf(c) +
+          this.alphabet.indexOf(this.key[i % this.key.length]) * directionModifier) % this.alphabet.length];
+      })
+      .join("");
+    }
+
+    randomKey(keyLen = 200) {
+      let key = this.alphabet[Math.floor(Math.random() * this.alphabet.length)];
       for(var i = 0; i < keyLen; i++)
       {
-        this.key += this.alphabet[Math.floor(Math.random() * 25)];
+        key += this.alphabet[Math.floor(Math.random() * this.alphabet.length)];
       }
+      return key;
     }
-    else {
-      if(!/^[a-z]+$/.test(cipherKey)) throw new Error("Bad key");
-      this.key = cipherKey;
-    }
-  };
-
-  Cipher.prototype.encode = function(cipherText) {
-    let alphabet = this.alphabet, key = this.key,
-    returnFunction = function(charVal, arrayIndex)
-      {
-        return alphabet[(alphabet.indexOf(charVal) +
-        alphabet.indexOf(key[arrayIndex % key.length])) % alphabet.length];
-      };
-    return this.ncode(cipherText, returnFunction);
-  };
-
-  Cipher.prototype.decode = function(cipherText) {
-    let alphabet = this.alphabet, key = this.key,
-    returnFunction = function(charVal, arrayIndex)
-      {
-        let returnVal = alphabet.indexOf(charVal) -
-          alphabet.indexOf(key[arrayIndex % key.length]);
-        returnVal = returnVal >= 0 ? returnVal : alphabet.length + returnVal;
-
-        return alphabet[returnVal];
-      };
-    return this.ncode(cipherText, returnFunction);
   }
-
-  Cipher.prototype.ncode = function(cipherText, mapFunction) {
-    return cipherText.split("")
-    .map(mapFunction)
-    .join("");
-  }
-
-module.exports = Cipher;
