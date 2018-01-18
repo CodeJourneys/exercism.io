@@ -1,3 +1,1 @@
-module.exports = ReverseString = function(str) {
-  return str.split('').reverse().join('');
-}
+module.exports = str => { return str.split('').reverse().join('') };
