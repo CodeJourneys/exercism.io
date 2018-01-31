@@ -1,9 +1,10 @@
 export default class Bob {
-    hey( str: string ): string {
-      str = str.trim()
-      const isYelling = /[A-Z]+/.test(str) && str.toUpperCase() === str,
-            isQuestion = str.substr(str.length - 1) === "?",
-            isSilence = str === ''
+    hey( dialog: string ): string {
+      dialog = dialog.trim()
+      const isYelling: boolean = dialog.toLowerCase() !== dialog.toUpperCase() &&
+                                 dialog.toUpperCase() === dialog,
+            isQuestion: boolean = dialog.substr(dialog.length - 1) === "?",
+            isSilence: boolean = dialog === ''
       if (isYelling) {
         if (isQuestion) return "Calm down, I know what I'm doing!"
         return "Whoa, chill out!"
