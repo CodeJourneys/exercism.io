@@ -3,9 +3,15 @@ module.exports = class Bob {
 
   hey(str) {
     str = str.trim();
-    if(/[A-Z]+/.test(str) && str.toUpperCase() === str) return "Whoa, chill out!";
-    if(str.substring(str.length - 1) === "?") return "Sure.";
-    if(str === '') return "Fine. Be that way!";
+    const isSilence = str === '',
+      isYelling = /[A-Z]+/.test(str) && str.toUpperCase() === str,
+      isQuestion = str.substring(str.length - 1) === "?";
+    if(isYelling) {
+      if(isQuestion) return "Calm down, I know what I'm doing!";
+      return "Whoa, chill out!";
+    }
+    if(isQuestion) return "Sure.";
+    if(isSilence) return "Fine. Be that way!";
     return "Whatever.";
   }
 }
