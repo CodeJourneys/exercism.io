@@ -10,6 +10,7 @@ csharp/*/obj/*
 yarn.lock
 .eslintignore
 .eslintrc
+typescript/*/jest.config.js
 
 ## VSCode ##
 .editorconfig
