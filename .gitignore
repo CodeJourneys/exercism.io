@@ -3,3 +3,4 @@ node_modules/
 *.json
 csharp/*/bin/*
 csharp/*/obj/*
+.editorconfig
