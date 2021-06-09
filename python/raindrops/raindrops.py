@@ -1,9 +1,2 @@
 def convert(number):
-    response = ""
-    if number % 3 == 0:
-      response += "Pling"
-    if number % 5 == 0:
-      response += "Plang"
-    if number % 7 == 0:
-      response += "Plong"
-    return response or str(number)
+  return ''.join([{3: 'Pling', 5: 'Plang', 7: 'Plong'}[x] for x in [3,5,7] if not n % x]) or str(n)
