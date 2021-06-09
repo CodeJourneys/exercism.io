@@ -1,7 +1,7 @@
 export class ResistorColor {
   private colors: string[]
 
-  private getNumberAsStringFromColor(color: string): number {
+  private getNumberFromColor(color: string): number {
     switch(color) {
       case "brown":
         return 1;
@@ -28,7 +28,7 @@ export class ResistorColor {
   }
 
   private parseColors(): number {
-    return this.getNumberAsStringFromColor(this.colors[0]) * 10 + this.getNumberAsStringFromColor(this.colors[1]);
+    return this.getNumberFromColor(this.colors[0]) * 10 + this.getNumberFromColor(this.colors[1]);
   }
 
   constructor(colors: string[]) {
