@@ -1,34 +1,23 @@
 export class ResistorColor {
   private colors: string[]
-
-  private getNumberFromColor(color: string): number {
-    switch(color) {
-      case "brown":
-        return 1;
-      case "red":
-        return 2;
-      case "orange":
-        return 3;
-      case "yellow":
-        return 4;
-      case "green":
-        return 5;
-      case "blue":
-        return 6;
-      case "violet":
-        return 7;
-      case "grey":
-        return 8;
-      case "white":
-        return 9;
-      case "black":
-      default:
-        return 0;
-    }
-  }
+  private colorLookup: {[index: string]: number} = {
+    black: 0, 
+    brown: 1, 
+    red: 2, 
+    orange: 3,
+    yellow: 4,
+    green: 5,
+    blue: 6,
+    violet: 7,
+    grey: 8,
+    white: 9
+  };
 
   private parseColors(): number {
-    return this.getNumberFromColor(this.colors[0]) * 10 + this.getNumberFromColor(this.colors[1]);
+    let firstColor: string = this.colors[0],
+        secondColor: string = this.colors[1];
+
+    return this.colorLookup[firstColor] * 10 + this.colorLookup[secondColor];
   }
 
   constructor(colors: string[]) {
