@@ -10,6 +10,4 @@ def personal_best(scores):
 
 
 def personal_top_three(scores):
-    if len(scores) > 3:
-        return get_sorted(scores)[0:3]
-    return get_sorted(scores)
+    return get_sorted(scores)[0:3]
